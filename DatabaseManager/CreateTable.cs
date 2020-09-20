@@ -3,18 +3,57 @@ using System.Collections.Generic;
 using DatabaseManager.Models;
 namespace DatabaseManager
 {
-    public class Class1
+    public class CreateTable:IDisposable
     {
-        public Class1(string _tablename,IEnumerable<MySqlColoumProperties> _sqlColoumns)
+        private string creationtype;
+
+        public IEnumerable<MySqlColoumProperties> MysqlColoumns { get; }
+        public string Tablename { get; }
+        public IEnumerable<SqlColoumProperties> SqlColoumns { get; }
+
+        public CreateTable(string _tablename,IEnumerable<MySqlColoumProperties> _mysqlColoumns)
+        {
+            if (string.IsNullOrEmpty(_tablename))
+            {
+                throw new ArgumentException($"{nameof(_tablename)} darf nicht NULL oder leer sein.", nameof(_tablename));
+            }
+
+            creationtype = "MYSQL";
+            Tablename = _tablename;
+            MysqlColoumns = _mysqlColoumns ?? throw new ArgumentNullException(nameof(_mysqlColoumns));
+        }
+
+        public CreateTable(string _tablename, IEnumerable<SqlColoumProperties> _sqlColoumns)
+        {
+            if (string.IsNullOrEmpty(_tablename))
+            {
+                throw new ArgumentException($"{nameof(_tablename)} darf nicht NULL oder leer sein.", nameof(_tablename));
+            }
+
+            creationtype = "MSSQL";
+            Tablename = _tablename;
+            SqlColoumns = _sqlColoumns ?? throw new ArgumentNullException(nameof(_sqlColoumns));
+        }
+
+        public string GetSQLCommandforTableCreation()
+        {
+            switch(creationtype)
+            {
+                case "MYSQL":
+                    return CreateTABLEMySQL(Tablename, MysqlColoumns);
+                    break;
+                case "MSSQL":
+                    return CreateTABLESQL(Tablename, SqlColoumns);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("SQL Type unknown");
+            }
+        }
+        public void Dispose()
         {
             
         }
-
-        public Class1(string _tablename, IEnumerable<SqlColoumProperties> _sqlColoumns)
-        {
-
-        }
-
+        
         private string CreateTABLEMySQL(string tableName, IEnumerable<MySqlColoumProperties> mySqlColoums)
         {
             string sqlsc;
