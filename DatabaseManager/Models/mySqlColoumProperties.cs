@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace DatabaseManager.Models
 {
-    public class mySqlColoumProperties
+    public class MySqlColoumProperties
     {
         public string Name;
         public bool isForeignkey;
@@ -14,6 +15,6 @@ namespace DatabaseManager.Models
         public int MaxLength=-1;
         public int AutoIncrementStartValue=1;
         public int AutoIncrementValue = 1;
-        public bool AllowDBNull;
+        public bool AllowDBNull=false;
     }
 }

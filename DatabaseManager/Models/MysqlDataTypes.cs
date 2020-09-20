@@ -6,13 +6,27 @@ namespace DatabaseManager.Models
 {
    public enum MysqlDataTypes
     {
-        CHAR, INT, VARCHAR, BIGINT, TINYTEXT, FLOAT,
-        TEXT, DOUBLE,
-        BLOB, DECIMAL, DATE,
-        MEDIUMBLOB, DATETIME,
-        LONGTEXT, TIMESTAMP,
-        LONGBLOB, TIME, TINYINT, ENUM,
-        SMALLINT, SET,
+        CHAR,
+        INT,
+        VARCHAR,
+        BIGINT,
+        TINYTEXT,
+        FLOAT,
+        TEXT,
+        DOUBLE,
+        BLOB,
+        DECIMAL,
+        DATE,
+        MEDIUMBLOB,
+        DATETIME,
+        LONGTEXT,
+        TIMESTAMP,
+        LONGBLOB,
+        TIME,
+        TINYINT,
+        ENUM,
+        SMALLINT,
+         SET,
         MEDIUMINT, BOOLEAN
     }
 }
